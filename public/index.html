@@ -21,7 +21,7 @@
     <script>
       var url = window.location.href.includes('localhost')
         ? 'http://localhost:3000/api/auth/google'
-        : 'https://restserver-node-course.herokuapp.com//api/auth/google';
+        : 'https://restserver-node-course.herokuapp.com/api/auth/google';
 
       function onSignIn(googleUser) {
         var id_token = googleUser.getAuthResponse().id_token;
