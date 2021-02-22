@@ -6,12 +6,17 @@ const {
   updateUser,
   deleteUser,
 } = require('../controllers/users');
-const validateRequest = require('../middlewares/validate-request');
 const {
   roleValidator,
   existingEmail,
   existingUserById,
 } = require('../helpers/param-validators');
+const {
+  validateRequest,
+  validateJWT,
+  isAdminUser,
+  verifyRole,
+} = require('../middlewares/');
 
 const router = Router();
 
@@ -30,8 +35,8 @@ router.post(
     //   .isIn(['ADMIN_ROLE', 'USER_ROLE'])
     //   .withMessage('Role is not allowed'),
     body('role').custom(roleValidator),
+    validateRequest,
   ],
-  validateRequest,
   createUser
 );
 
@@ -41,15 +46,20 @@ router.put(
     check('id', 'Invalid id').isMongoId(),
     check('id').custom(existingUserById),
     body('role').custom(roleValidator),
+    validateRequest,
   ],
-  validateRequest,
   updateUser
 );
 
 router.delete(
   '/:id',
-  [check('id', 'Invalid id').isMongoId(), check('id').custom(existingUserById)],
-  validateRequest,
+  [
+    validateJWT,
+    verifyRole('ADMIN_ROLE', 'VENDOR-ROLE'),
+    check('id', 'Invalid id').isMongoId(),
+    check('id').custom(existingUserById),
+    validateRequest,
+  ],
   deleteUser
 );
 
