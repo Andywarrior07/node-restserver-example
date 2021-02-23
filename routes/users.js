@@ -11,12 +11,7 @@ const {
   existingEmail,
   existingUserById,
 } = require('../helpers/param-validators');
-const {
-  validateRequest,
-  validateJWT,
-  isAdminUser,
-  verifyRole,
-} = require('../middlewares/');
+const { validateRequest, validateJWT, verifyRole } = require('../middlewares/');
 
 const router = Router();
 
