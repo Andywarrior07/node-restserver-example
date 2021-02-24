@@ -40,10 +40,21 @@ const existingProduct = async id => {
   }
 };
 
+const allowedCollections = (collection, collections) => {
+  const isIncluded = collections.includes(collection);
+
+  if (!isIncluded) {
+    throw new Error('Collection does not exists');
+  }
+
+  return true;
+};
+
 module.exports = {
   roleValidator,
   existingEmail,
   existingUserById,
   existingCategory,
   existingProduct,
+  allowedCollections,
 };

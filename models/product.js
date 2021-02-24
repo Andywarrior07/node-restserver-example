@@ -9,6 +9,9 @@ const ProductSchema = Schema({
     type: Number,
     required: true,
   },
+  img: { type: String },
+  description: { type: String },
+  available: { type: Boolean, default: true },
   category: {
     type: Schema.Types.ObjectId,
     ref: 'Category',
@@ -19,8 +22,6 @@ const ProductSchema = Schema({
     ref: 'User',
     required: true,
   },
-  description: { type: String },
-  available: { type: Boolean, default: true },
   enabled: {
     type: Boolean,
     default: true,
